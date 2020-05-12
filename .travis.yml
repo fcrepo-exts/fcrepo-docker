@@ -1,0 +1,26 @@
+jobs:
+  include:
+    - if: branch = master
+      env: VERSION=6.0.0-SNAPSHOT
+    - if: branch = 5.x-maintenance
+      env: VERSION=5.1.0
+
+services:
+  - docker
+
+script:
+  # build docker image
+  - ./travis/build.sh
+
+deploy:
+  skip_cleanup: true
+  - provider: script
+    script: ./travis/push.sh $VERSION
+    on:
+      repo: fcrepo4-labs/fcrepo-docker
+      condition: ${TRAVIS_BRANCH} == *-maintenance
+  - provider: script
+    script: ./travis/push.sh $VERSION latest
+    on:
+      repo: fcrepo4-labs/fcrepo-docker
+      branch: master

@@ -16,11 +16,12 @@ ENV TOMCAT_USERS_FILE=$CATALINA_HOME/conf/tomcat-users.xml \
 # Add webapp, scripts and config files: 
 COPY tomcat/conf/* $CATALINA_HOME/conf/
 COPY tomcat/bin/* $CATALINA_HOME/bin/setenv.sh
-COPY fcrepo-webapp.war /tmp/fcrepo-webapp.war
 
-# Set permissions and unpack webapp
+# Set permissions and create webapp directory
 RUN chmod 744 $CATALINA_HOME/bin/setenv.sh \
     && chmod 600 $CATALINA_HOME/conf/tomcat-users.xml \
-    && mkdir $CATALINA_HOME/webapps/fcrepo \
-    && unzip /tmp/fcrepo-webapp.war -d $CATALINA_HOME/webapps/fcrepo \
-    && rm /tmp/fcrepo-webapp.war
+    && mkdir $CATALINA_HOME/webapps/fcrepo
+
+COPY webapp $CATALINA_HOME/webapps/fcrepo
+
+

@@ -1,1 +1,2 @@
-fcrepo-webapp.war
+fcrepo-webapp*.war
+webapp/*

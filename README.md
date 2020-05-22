@@ -33,10 +33,23 @@ Variable | Default Value | Description
 `FEDORA_ADMIN_PASSWORD` | `fedoraAdmin` | If using the default tomcat-users.xml file: specify a custom password to for the user `fedoraAdmin`
 `LOGBACK_CONFIGURATIONFILE` | none | Specify a custom logback.configurationFile
 
+For a detailed explanation of the configuration options have a look at [Application Configuration](https://wiki.lyrasis.org/display/FEDORA6x/Application+Configuration) in the Lyrasis Wiki.
+
 ## Development
+
+### Repository organisation
 
 This repository is used to manage docker images for the Fedora Commons from Version 5.x onwards. The Dockerfile for the latest release of each major version is managed on separate branch. Currently the following are planned:
 
-- `5.x-maintenance`: latest release of version 5
-- `6.x-maintenance`: latest release of version 6
+- `5.x-maintenance`: latest release of version 5 (coming soon)
 - `master`: latest development snapshot
+
+ ### Building the docker image locally
+
+To build the docker image from a locally built snapshot of fcrepo-webapp, pass the path to the fcrepo-webapp-*.war to the build script:
+
+```
+./build.sh /path/to/fcrepo-webapp-6.0.0-SNAPSHOT.war
+```
+
+This will create a docker image fcrepo/fcrepo in your local docker repository.

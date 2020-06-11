@@ -1,0 +1,4 @@
+build.sh
+fcrepo-webapp*.war
+push.sh
+.travis.yml

@@ -22,7 +22,7 @@ else
 fi
 
 if [ ! -z "$FCREPO_AUTH_WEBAC_AUTHORIZATION" ] ; then
-  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.activemq.configuration=$FCREPO_AUTH_WEBAC_AUTHORIZATION"
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.auth.webac.authorization=$FCREPO_AUTH_WEBAC_AUTHORIZATION"
 fi
 
 if [ ! -z "$FCREPO_SPRING_AUDIT_CONFIGURATION" ] ; then

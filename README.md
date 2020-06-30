@@ -1,4 +1,4 @@
-# The Official "Plain Vanilla" Fedora Repository Docker Files
+# The Official  Fedora Repository Docker Files
 
 ---
 

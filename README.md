@@ -22,19 +22,21 @@
 In order to build locally, run this command
 
 ```
-docker build -t fcrepo/fcrepo:5.1.0 .
+MINOR_VERSION=1
+PATCH_VERSION=0
+docker build -t "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}" .
 ```
 
 # Running
 
 To run 
 ```
-docker run -p8080:8080 --name fcrepo-5.1.0 fcrepo/fcrepo:5.1.0
+docker run -p8080:8080 --name "fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"  "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"
 ```
 
 To connect to the docker instance: 
 ```
-docker exec -it fcrepo-5.1.0 bash
+docker exec -it "fcrepo-5.${MINOR_VERSION}.${PATCH_VERSION}" bash
 ```
 
 # Interacting with Fedora 
@@ -52,7 +54,7 @@ testuser |  fedoraUser | testpass | Has limited privileges but can be granted mo
 If you need additional users or don't want to provide the password for fedoraAdmin via a environment variable, you can specify your own `tomcat-users.xml` file with the environment variable `TOMCAT_USERS_FILE`, e.g:
 
 ```
-docker run -p8080:8080 -v/path/on/host/tomcat-users.xml:/tomcat-users.xml -e TOMCAT_USERS_FILE=/tomcat-users.xml --name=fcrepo-5.1.0  fcrepo/fcrepo:5.1.0
+docker run -p8080:8080 -v/path/on/host/tomcat-users.xml:/tomcat-users.xml -e TOMCAT_USERS_FILE=/tomcat-users.xml --name="fcrepo-5.${MINOR_VERSION}.${PATCH_VERSION}"  "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"
 ```
 
 ### Passing in configuration

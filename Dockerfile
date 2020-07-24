@@ -18,7 +18,6 @@ ENV JMS_BROKER_URL=tcp://localhost:61616 \
     JAVA_MAX_MEM=${JAVA_MAX_MEM:-2G} \
     JAVA_MIN_MEM=${JAVA_MIN_MEM:-512M} \
     JAVA_OPTS='-Djava.awt.headless=true -server -Xmx${JAVA_MAX_MEM} -Xms${JAVA_MIN_MEM} -XX:+UseG1GC -XX:+UseStringDeduplication -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=70 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true' \
-    FCREPO_VERSION=${FCREPO_VERSION:-5.1.0} \
     FCREPO_HOME=/opt/fcrepo/data \
     FCREPO_CONFIG_DIR=/opt/fcrepo/config \
     # jdbc-mysql, jdbc-postgresql, file-simple
@@ -47,7 +46,7 @@ ARG FCREPO_HOME
 
 # Download FCREPO war file and copy to tomcat/webapps dir
 RUN cd /tmp \
-	&& curl -fSL https://github.com/fcrepo4/fcrepo4/releases/download/fcrepo-$FCREPO_VERSION/fcrepo-webapp-$FCREPO_VERSION.war -o fcrepo.war \
+	&& curl -fSL  "https://repo1.maven.org/maven2/org/fcrepo/fcrepo-webapp/${FCREPO_VERSION}/fcrepo-webapp-${FCREPO_VERSION}.war" -o fcrepo.war \
 	&& cp fcrepo.war /usr/local/tomcat/webapps/fcrepo.war
 
 # Add the /opt/fcrepo directory and contents

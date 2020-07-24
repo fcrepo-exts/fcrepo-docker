@@ -1,4 +1,4 @@
-# The Official "Plain Vanilla" Fedora Repository Docker Files
+# The Official Fedora Repository Docker Files
 
 ---
 
@@ -8,7 +8,7 @@
 
 **Contains**:
 
-* [Fedora](https://github.com/fcrepo4/fcrepo4/releases/tag/fcrepo-5.1.0) `5.1.0`
+* [Fedora 5.x](https://github.com/fcrepo4/fcrepo4/tree/5.1.x-maintenance)`
 * [Tomcat](https://tomcat.apache.org/download-80.cgi)`8.5.x`
 * [OpenJDK](https://openjdk.java.net/) `8`
   * Versions 11 & 13 on with Tomcat 9 fail using Fedora 5.
@@ -19,24 +19,38 @@
 
 # Building
 
-In order to build locally, run this command
+In order to build the docker container locally with a tag. The Dockerfile requires that there is a published fcrepo-webapp-<version>.war in 
+Sonatype (https://repo1.maven.org/)
 
 ```
 MINOR_VERSION=1
-PATCH_VERSION=0
-docker build -t "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}" .
+PATCH_VERSION=1
+FCREPO_VERSION="5.${MINOR_VERSION}.${PATCH_VERSION}"
+docker build --build-arg  FCREPO_VERSION=${FCREPO_VERSION} -t "fcrepo/fcrepo:${FCREPO_VERSION}" .
+```
+
+# Pushing (for releases to a public dockerhub repository)
+
+To push your build container to Docker Hub do the following:
+```
+DOCKER_USERNAME=<your username>
+DOCKER_PASSWORD=<your password>
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+
+docker push <your dockerhub namespace>/fcrepo:$FEDORA_VERSION
 ```
 
 # Running
 
 To run 
 ```
-docker run -p8080:8080 --name "fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"  "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"
+docker run -p8080:8080 --name "fcrepo-${FCREPO_VERSION}"  "fcrepo/fcrepo:${FCREPO_VERSION}"
 ```
 
 To connect to the docker instance: 
 ```
-docker exec -it "fcrepo-5.${MINOR_VERSION}.${PATCH_VERSION}" bash
+docker exec -it "fcrepo-5.${FCREPO_VERSION}" bash
 ```
 
 # Interacting with Fedora 
@@ -54,7 +68,7 @@ testuser |  fedoraUser | testpass | Has limited privileges but can be granted mo
 If you need additional users or don't want to provide the password for fedoraAdmin via a environment variable, you can specify your own `tomcat-users.xml` file with the environment variable `TOMCAT_USERS_FILE`, e.g:
 
 ```
-docker run -p8080:8080 -v/path/on/host/tomcat-users.xml:/tomcat-users.xml -e TOMCAT_USERS_FILE=/tomcat-users.xml --name="fcrepo-5.${MINOR_VERSION}.${PATCH_VERSION}"  "fcrepo/fcrepo:5.${MINOR_VERSION}.${PATCH_VERSION}"
+docker run -p8080:8080 -v/path/on/host/tomcat-users.xml:/tomcat-users.xml -e TOMCAT_USERS_FILE=/tomcat-users.xml --name="fcrepo-${FCREPO_VERSION}"  "fcrepo/fcrepo:${FCREPO_VERSION}"
 ```
 
 ### Passing in configuration
@@ -78,7 +92,6 @@ Variable | Default Value | Description
 `JMS_BROKER_URL` | tcp://localhost:61616 |
 `JAVA_MAX_MEM` | 2G | max jvm heap
 `JAVA_MIN_MEM` | 512M | min jvm heap
-`FCREPO_VERSION` | 5.1.0 | Fedora Version
 `FCREPO_HOME` | /opt/fcrepo/data | Fedora home directory
 `FCREPO_CONFIG_DIR` | /opt/fcrepo/config | Fedora config directory
 `FCREPO_MODESHAPE_TYPE` | file-simple | valid values:  jdbc-mysql, jdbc-postgresql, file-simple 

@@ -2,14 +2,39 @@
 
 # Add system properties for env variables defined in docker image:
 CATALINA_OPTS="$CATALINA_OPTS \
--Dfile.encoding=UTF-8 \
 -Dorg.apache.tomcat.util.digester.PROPERTY_SOURCE=org.apache.tomcat.util.digester.EnvironmentPropertySource \
--Dfcrepo.ocfl.staging.dir=$FCREPO_OCFL_STAGING_DIR \
--Dfcrepo.ocfl.storage.root.dir=$FCREPO_OCFL_STORAGE_ROOT_DIR \
--Dfcrepo.ocfl.work.dir=$FCREPO_OCFL_WORK_DIR \
+-Dfile.encoding=UTF-8 \
+-Dorg.apache.tomcat.util.digester.REPLACE_SYSTEM_PROPERTIES=true \
 -Dfcrepo.audit.container=$FCREPO_AUDIT_CONTAINER"
 
 # Only add these system properties, if the env variable is defined:
+if [ ! -z "$FCREPO_HOME" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.home=$FCREPO_HOME"
+fi
+
+if [ ! -z "$FCREPO_OCFL_STAGING" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.ocfl.staging=$FCREPO_OCFL_STAGING"
+fi
+
+if [ ! -z "$FCREPO_OCFL_ROOT" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.ocfl.root=$FCREPO_OCFL_ROOT"
+fi
+
+if [ ! -z "$FCREPO_OCFL_TEMP" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.ocfl.temp=$FCREPO_OCFL_TEMP"
+fi
+
+if [ ! -z "$FCREPO_DB_URL" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.db.url=$FCREPO_DB_URL"
+fi 
+
+if [ ! -z "$FCREPO_DB_USERNAME" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.db.user=$FCREPO_DB_USERNAME"
+fi
+
+if [ ! -z "$FCREPO_DB_PASSWORD" ] ; then
+  CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.db.password=$FCREPO_DB_PASSWORD"
+fi
 
 if [ ! -z "$FCREPO_SPRING_CONFIGURATION" ] ; then
   CATALINA_OPTS="$CATALINA_OPTS -Dfcrepo.spring.configuration=$FCREPO_SPRING_CONFIGURATION"

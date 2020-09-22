@@ -42,5 +42,5 @@
   <user username="role1" password="<must-be-changed>" roles="role1"/>
 -->
   <role rolename="fedoraAdmin"/>
-  <user username="fedoraAdmin" password="${FEDORA_ADMIN_PASSWORD}" roles="fedoraAdmin"/>"
+  <user username="${FEDORA_ADMIN_USERNAME}" password="${FEDORA_ADMIN_PASSWORD}" roles="fedoraAdmin"/>"
 </tomcat-users>

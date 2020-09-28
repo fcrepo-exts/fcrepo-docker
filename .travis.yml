@@ -19,10 +19,10 @@ deploy:
   - provider: script
     script: ./push.sh $VERSION
     on:
-      repo: fcrepo4-labs/fcrepo-docker
+      repo: fcrepo-exts/fcrepo-docker
       condition: ${TRAVIS_BRANCH} == *-maintenance
   - provider: script
     script: ./push.sh $VERSION latest
     on:
-      repo: fcrepo4-labs/fcrepo-docker
+      repo: fcrepo-exts/fcrepo-docker
       branch: master

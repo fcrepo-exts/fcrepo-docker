@@ -25,4 +25,4 @@ deploy:
     script: ./push.sh $VERSION latest
     on:
       repo: fcrepo-exts/fcrepo-docker
-      branch: master
+      branch: main

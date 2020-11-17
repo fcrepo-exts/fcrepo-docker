@@ -36,7 +36,7 @@ Variable | Default Value | Description
 `FEDORA_ADMIN_PASSWORD` | `fedoraAdmin` | If using the default tomcat-users.xml file: specify a custom password  for the FEDORA_ADMIN_USERNAME defined above
 `LOGBACK_CONFIGURATIONFILE` | none | Specify a custom logback.configurationFile
 
-Use the CATALINA_OPTS environment variable to pass in Java options (-Dname=value). You may also pass all your options via a properties vile
+Use the CATALINA_OPTS environment variable to pass in Java options (-Dname=value). You may also pass all your options via a properties file
 using the "fcrepo.config.file" option.  For example: 
 ```
 docker run -p8080:8080 -v/path/on/local/machine/to/properties:/fcrepo.properties -e CATALINA_OPTS="-Dfcrepo.config.file=/fcrepo.properties" --name=fcrepo fcrepo/fcrepo
@@ -62,7 +62,7 @@ For a detailed explanation of the configuration options have a look at [Applicat
 
 ### Repository organization
 
-This repository is used to manage docker images for the Fedora Commons from Version 5.x onwards. The Dockerfile for the latest release of each major version is managed on separate branch. 
+This repository is used to manage docker images for the Fedora Commons from Version 5.x onwards. The Dockerfile for the latest release of each major version is managed on a separate branch.
 
 - `5.x-maintenance`: latest release of version 5 (coming soon)
 - `main`: latest development snapshot

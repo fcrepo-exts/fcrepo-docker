@@ -19,7 +19,7 @@ Grafana will be available at: http://host:3000
 1. [Install Docker](https://docs.docker.com/get-docker/)
 1. Create a Fedora home directory for all repository persistence. This configuration expects:
    ```
-   mkdir /data/fcrepo-home
+   mkdir -p /data/fcrepo-home
    ```
 
 # Start-up

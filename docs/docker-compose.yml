@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres:12.3"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: fcrepo-user
+      POSTGRES_PASSWORD: fcrepo-pw
+      POSTGRES_DB: fcrepo
+
+  fcrepo:
+    image: "fcrepo/fcrepo"
+    ports:
+      - "8080:8080"
+    volumes:
+      - /opt/fcrepo-home:/data
+      - ./fcrepo.properties:/fcrepo.properties
+    environment:
+      CATALINA_OPTS: "-Djava.awt.headless=true -server -Xms1G -Xmx2G -XX:MaxNewSize=1G -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/data/mem -Dfcrepo.config.file=/fcrepo.properties"
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    network_mode: "host"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    network_mode: "host"

@@ -15,7 +15,7 @@ services:
       - "8080:8080"
     volumes:
       - /opt/fcrepo-home:/data
-      - /opt/fcrepo-home/fcrepo.properties:/fcrepo.properties
+      - ./fcrepo.properties:/fcrepo.properties
     environment:
       CATALINA_OPTS: "-Djava.awt.headless=true -server -Xms1G -Xmx2G -XX:MaxNewSize=1G -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/data/mem -Dfcrepo.config.file=/fcrepo.properties"
 

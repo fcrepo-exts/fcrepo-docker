@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Builds a local docker image
+
 # exit when any command fails:
 set -e
 

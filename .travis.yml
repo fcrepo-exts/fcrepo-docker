@@ -1,9 +1,7 @@
 jobs:
   include:
-    - if: branch = master
+    - if: branch = main
       env: VERSION=6.0.0-SNAPSHOT
-    - if: branch = 5.x-maintenance
-      env: VERSION=5.1.0
 
 services:
   - docker
@@ -11,18 +9,16 @@ services:
 script:
   # get the webapp.war
   mvn dependency:copy -Dartifact=org.fcrepo:fcrepo-webapp:$VERSION:war -DoutputDirectory=. -Dmdep.stripVersion=true
-  # build docker image
-  - ./build.sh ./fcrepo-webapp.war
 
 deploy:
   skip_cleanup: true
   - provider: script
-    script: ./push.sh $VERSION
+    script: ./build-and-push-to-dockerhub.sh ./fcrepo-webapp.war $VERSION
     on:
       repo: fcrepo-exts/fcrepo-docker
       condition: ${TRAVIS_BRANCH} == *-maintenance
   - provider: script
-    script: ./push.sh $VERSION latest
+    script: ./build-and-push-to-dockerhub.sh ./fcrepo-webapp.war $VERSION latest
     on:
       repo: fcrepo-exts/fcrepo-docker
       branch: main

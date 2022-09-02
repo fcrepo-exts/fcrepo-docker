@@ -167,7 +167,9 @@
 
         <!-- Detect if Fedora is running behind a reverse proxy -->
         <Valve className="org.apache.catalina.valves.RemoteIpValve"
-        protocolHeader="X-Forwarded-Proto" />
+        protocolHeader="X-Forwarded-Proto"
+        hostHeader="X-Forwarded-Host"
+        remoteIpHeader="X-Forwarded-For" />
       </Host>
     </Engine>
   </Service>

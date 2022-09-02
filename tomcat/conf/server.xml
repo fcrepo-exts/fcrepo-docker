@@ -165,6 +165,9 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
+        <!-- Detect if Fedora is running behind a reverse proxy -->
+        <Valve className="org.apache.catalina.valves.RemoteIpValve"
+        protocolHeader="X-Forwarded-Proto" />
       </Host>
     </Engine>
   </Service>

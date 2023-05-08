@@ -1,0 +1,57 @@
+name: Rebuild latest release image version
+
+on:
+  schedule:
+    - cron: 0 0 * * 1
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  rebuild:
+    name: Rebuild latest release image version
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout main fcrepo repository"
+        uses: actions/checkout@v3
+        with:
+          repository: "fcrepo/fcrepo"
+
+      - name: "Checkout fcrepo Docker repository"
+        uses: actions/checkout@v3
+        with:
+          path: "fcrepo-docker"
+
+      - name: "Get latest release version"
+        id: get_latest_version
+        run: |
+          # https://github.com/actions/checkout/issues/701
+          git fetch --tags origin --unshallow
+          LATEST_RELEASE_TAG=$(git describe --abbrev=0 --exclude="*RC*")
+
+          echo "latest_release_tag=$LATEST_RELEASE_TAG" >> $GITHUB_OUTPUT
+          echo "latest_release_version=${LATEST_RELEASE_TAG//fcrepo-/}" >> $GITHUB_OUTPUT
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 11
+          cache: "maven"
+
+      - name: "Build fcrepo WAR"
+        run: |
+          git checkout "${{ steps.get_latest_version.outputs.latest_release_tag }}"
+          mvn -B -U clean install
+
+      - name: "Build Docker image"
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          cd fcrepo-docker
+          LATEST_RELEASE_VERSION=${{ steps.get_latest_version.outputs.latest_release_version }}
+          a=( ${LATEST_RELEASE_VERSION//./ } )
+
+          ./build-and-push-to-dockerhub.sh ../fcrepo-webapp/target/fcrepo-webapp-$LATEST_RELEASE_VERSION.war "${a[0]}.${a[1]}.${a[2]}-tomcat9" "${a[0]}.${a[1]}-tomcat9" "${a[0]}-tomcat9"

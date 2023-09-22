@@ -52,6 +52,6 @@ jobs:
         run: |
           cd fcrepo-docker
           LATEST_RELEASE_VERSION=${{ steps.get_latest_version.outputs.latest_release_version }}
-          a=( ${LATEST_RELEASE_VERSION//./ } )
+          VERSION_PARTS=( ${LATEST_RELEASE_VERSION//./ } )
 
-          ./build-and-push-to-dockerhub.sh ../fcrepo-webapp/target/fcrepo-webapp-$LATEST_RELEASE_VERSION.war "${a[0]}.${a[1]}.${a[2]}-tomcat9" "${a[0]}.${a[1]}-tomcat9" "${a[0]}-tomcat9"
+          ./build-and-push-to-dockerhub.sh ../fcrepo-webapp/target/fcrepo-webapp-$LATEST_RELEASE_VERSION.war "${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}-tomcat9" "${VERSION_PARTS[0]}.${VERSION_PARTS[1]}-tomcat9" "${VERSION_PARTS[0]}-tomcat9"

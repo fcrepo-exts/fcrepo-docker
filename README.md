@@ -12,6 +12,28 @@ Username | Role          | Default password | Description
 -------- | ------------- | ---------------- | -----------
 fedoraAdmin | fedoraAdmin | fedoraAdmin     | Has full privileges on fedora
 
+Fedora is deployed to the `fcrepo` context of Tomcat.
+i.e.
+```
+> curl -ufedoraAdmin:fedoraAdmin http://localhost:8080/fcrepo/rest/
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fedora: <http://fedora.info/definitions/v4/repository#> .
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+
+<http://localhost:8080/fcrepo/rest/>
+        fedora:created                 "2023-12-12T14:06:11.200967Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        fedora:lastModified            "2023-12-12T14:06:11.200967Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rdf:type                       ldp:BasicContainer ;
+        rdf:type                       ldp:Resource ;
+        rdf:type                       fedora:Resource ;
+        rdf:type                       fedora:RepositoryRoot ;
+        rdf:type                       ldp:RDFSource ;
+        rdf:type                       ldp:Container ;
+        rdf:type                       fedora:Container ;
+        fedora:hasTransactionProvider  <http://localhost:8080/fcrepo/rest/fcr:tx> .
+```
+
 If you need additional users or don't want to provide the password for fedoraAdmin via a environment variable, you can specify your own `tomcat-users.xml` file with the environment variable `TOMCAT_USERS_FILE`, e.g:
 
 ```

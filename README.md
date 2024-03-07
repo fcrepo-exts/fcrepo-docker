@@ -18,10 +18,10 @@ If you need additional users or don't want to provide the password for fedoraAdm
 docker run -p8080:8080 -v/path/on/host/tomcat-users.xml:/tomcat-users.xml -e TOMCAT_USERS_FILE=/tomcat-users.xml --name=fcrepo fcrepo/fcrepo
 ```
 
-By default the docker container writes all data to `/var/lib/fcrepo`. For persistent storage, this path should be declared as a volume, e.g:
+By default the docker container writes all data to `/usr/local/tomcat/fcrepo-home`. For persistent storage, this path should be declared as a volume, e.g:
 
 ```
-docker run -p8080:8080 -v/path/on/host:/var/lib/fcrepo --name=fcrepo fcrepo/fcrepo
+docker run -p8080:8080 -v/path/on/host:/usr/local/tomcat/fcrepo-home --name=fcrepo fcrepo/fcrepo
 ```
 
 ### Passing in configuration

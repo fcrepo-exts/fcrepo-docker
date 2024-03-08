@@ -58,6 +58,20 @@ ls -last /path/to/fedora_home
 
 For a detailed explanation of the configuration options have a look at [Application Configuration](https://wiki.lyrasis.org/display/FEDORA6x/Application+Configuration) in the Lyrasis Wiki.
 
+## Official Dockerhub Releases and Tags
+
+This repository also houses the GitHub actions and shell scripts which are responsible for updating the [Official fcrepo DockerHub repository](https://hub.docker.com/r/fcrepo/fcrepo/tags). There you will find tagged releases for your convenience following the common standard of:
+
+- `fcrepo/fcrepo:latest` : points to the most recent stable MAJOR.MINOR.PATCH release e.g. 'fcrepo/fcrepo:6.5.0'. Use this with care as it may jump MAJOR versions with large breaking changes major updates to core libraries and perhaps new ways of working.  
+- `fcrepo/fcrepo:MAJOR-tomcat9` : points to the most recent version of the MAJOR release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6-tomcat9'. Use this to target a major version but with a risk of changes though they should remain backwards compatible with previous versions.
+- `fcrepo/fcrepo:MAJOR.MINOR-tomcat9` : points to the most recent version of the MAJOR and MINOR release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6.5-tomcat9'. Use this to target a known good marjor and minor version but with the latest bug fixes and no unexpected changes. 
+- `fcrepo/fcrepo:MAJOR.MINOR.PATCH-tomcat9` : points to the most recent version of the MAJOR and MINOR and PATCH release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6.4.1-tomcat9'. Use this to target a very specific patch release which you know to be right for your use case. 
+- `fcrfepo/fcrepo:MAJOR.MINOR.PATCH-SNAPSHOT` : tracks the main branch of the repository and contains bleeding edge, as-yet unreleased changes. Use at your own risk! This is not designerd to be used in production. It is a convenient method of packaging and deploying the latest code for developers and testers.  e.g. 6.5.0-SNAPSHOT
+
+For more information on the [Semantic Versioning](https://semver.org) scheme used by all of our repositories, refer to their documentation. 
+
+
+
 ## Development
 
 ### Repository organization

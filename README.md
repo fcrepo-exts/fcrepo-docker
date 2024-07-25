@@ -62,7 +62,7 @@ For a detailed explanation of the configuration options have a look at [Applicat
 
 This repository also houses the GitHub actions and shell scripts which are responsible for updating the [Official fcrepo DockerHub repository](https://hub.docker.com/r/fcrepo/fcrepo/tags). There you will find tagged releases for your convenience following the common standard of:
 
-- `fcrepo/fcrepo:latest` : points to the most recent stable MAJOR.MINOR.PATCH release e.g. 'fcrepo/fcrepo:6.5.0'. Use this with care as it may jump MAJOR versions with large breaking changes major updates to core libraries and perhaps new ways of working.  
+- `fcrepo/fcrepo:latest` : **[DEPRECATED]**  We are phasing out the use of the `latest` tag. Please use a specifiv version number from the following available options. 
 - `fcrepo/fcrepo:MAJOR-tomcat9` : points to the most recent version of the MAJOR release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6-tomcat9'. Use this to target a major version but with a risk of changes though they should remain backwards compatible with previous versions.
 - `fcrepo/fcrepo:MAJOR.MINOR-tomcat9` : points to the most recent version of the MAJOR and MINOR release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6.5-tomcat9'. Use this to target a known good marjor and minor version but with the latest bug fixes and no unexpected changes. 
 - `fcrepo/fcrepo:MAJOR.MINOR.PATCH-tomcat9` : points to the most recent version of the MAJOR and MINOR and PATCH release and is paired with tomcat9 e.g. 'fcrepo/fcrepo:6.4.1-tomcat9'. Use this to target a very specific patch release which you know to be right for your use case. 

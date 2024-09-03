@@ -6,6 +6,16 @@ set -e
 FCREPO_WEBAPP_FULL_PATH="$1"
 FCREPO_WEBAPP_FILE=$(basename "$FCREPO_WEBAPP_FULL_PATH")
 
+for docker_tag in "${@:2}"
+do
+    # Check that valid tag is supplied. If not, fail
+    if [ "latest" == "${docker_tag}" ] || [ -z "${docker_tag}" ]
+    then
+        echo "Building latest or empty tags is no longer supported"
+        exit 1
+    fi
+done
+
 if [ -d ./webapp ]; then
     rm -r ./webapp
 fi
@@ -23,13 +33,6 @@ for docker_tag in "${@:2}"
 do
     # Check that valid tag is supplied. If not, fail
     echo "Building and pushing $docker_tag ..."
-    if [ "latest" == "${docker_tag}" ] || [ -z "${docker_tag}" ]
-    then
-        echo "Building latest or empty tags is no longer supported"
-        exit 1
-    else
-        docker buildx build --platform ${platforms} --push  -t fcrepo/fcrepo:$docker_tag .
-    fi
-
+    docker buildx build --platform ${platforms} --push  -t fcrepo/fcrepo:$docker_tag .
     echo "Build and push complete for $docker_tag"
 done

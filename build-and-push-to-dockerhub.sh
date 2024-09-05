@@ -31,7 +31,6 @@ platforms=linux/arm64,linux/amd64
 # build and push images
 for docker_tag in "${@:2}"
 do
-    # Check that valid tag is supplied. If not, fail
     echo "Building and pushing $docker_tag ..."
     docker buildx build --platform ${platforms} --push  -t fcrepo/fcrepo:$docker_tag .
     echo "Build and push complete for $docker_tag"

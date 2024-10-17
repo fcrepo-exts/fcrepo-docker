@@ -1,4 +1,4 @@
-FROM tomcat:9-jdk11-openjdk
+FROM tomcat:9-jdk11-temurin
 
 # escape \
 ENV TOMCAT_USERS_FILE=$CATALINA_HOME/conf/tomcat-users.xml \

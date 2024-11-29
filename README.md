@@ -57,6 +57,7 @@ Variable | Default Value | Description
 `FEDORA_ADMIN_USERNAME` | `fedoraAdmin` | If using the default tomcat-users.xml file: specify a custom username for the user `fedoraAdmin`
 `FEDORA_ADMIN_PASSWORD` | `fedoraAdmin` | If using the default tomcat-users.xml file: specify a custom password  for the FEDORA_ADMIN_USERNAME defined above
 `LOGBACK_CONFIGURATIONFILE` | none | Specify a custom logback.configurationFile
+`ENCODED_SOLIDUS_HANDLING` | `reject` | Sets the Tomcat `encodedSolidusHandling` property which defines how URLs with `%2F` are handled, valid values are `reject`, `decode` or `passthrough`. 
 
 Use the CATALINA_OPTS environment variable to pass in Java options (-Dname=value). You may also pass all your options via a properties file
 using the "fcrepo.config.file" option.  For example: 

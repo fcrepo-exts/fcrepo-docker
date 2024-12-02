@@ -67,8 +67,8 @@ if [ $PUSH -eq 1 ]; then
     read -s DOCKER_PASSWORD
     echo ""
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    docker buildx create --use > /dev/null
 fi
+docker buildx create --use > /dev/null
 platforms=linux/arm64,linux/amd64
 
 # build and push images

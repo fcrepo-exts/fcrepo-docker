@@ -3,7 +3,8 @@ FROM tomcat:9-jdk11-temurin
 # escape \
 ENV TOMCAT_USERS_FILE=$CATALINA_HOME/conf/tomcat-users.xml \
     FEDORA_ADMIN_USERNAME=fedoraAdmin \
-    FEDORA_ADMIN_PASSWORD=fedoraAdmin
+    FEDORA_ADMIN_PASSWORD=fedoraAdmin \
+    ENCODED_SOLIDUS_HANDLING=reject
 
 # Add webapp, scripts and config files: 
 COPY tomcat/conf/* $CATALINA_HOME/conf/

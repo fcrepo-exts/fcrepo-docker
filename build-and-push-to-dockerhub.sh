@@ -60,12 +60,15 @@ mkdir ./webapp
 unzip -q -d ./webapp "$FCREPO_WEBAPP_FULL_PATH"
 
 if [ $PUSH -eq 1 ]; then
-    # authenticate with docker hub and then push images:
-    echo -n "Enter hub.docker.com username ->"
-    read DOCKER_USERNAME
-    echo -n "Enter hub.docker.com password ->"
-    read -s DOCKER_PASSWORD
-    echo ""
+    if [ -z "$DOCKER_USERNAME" ]; then
+        echo -n "Enter hub.docker.com username ->"
+        read DOCKER_USERNAME
+    fi
+    if [ -z "$DOCKER_PASSWORD" ]; then
+        echo -n "Enter hub.docker.com password ->"
+        read -s DOCKER_PASSWORD
+        echo ""
+    fi
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 fi
 docker buildx create --use > /dev/null
